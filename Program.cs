@@ -59,7 +59,14 @@ public sealed class ProjectService
         Console.WriteLine("\nTODO 5: Сравнение LINQ и PLINQ ---");
         _parallelService.CompareProcessing();
 
-        await Task.CompletedTask;
+        Console.WriteLine("\nTODO 6: IDisposable обёртка");
+        using (var wrapper = new FileStreamWrapper("dispose_test.bin"))
+        {
+            wrapper.WriteByte(42);
+            Console.WriteLine("Записали байт в файл через обёртку.");
+        }
+        Console.WriteLine("Обёртка удалена.");
+
         await Task.CompletedTask;
     }
 }
