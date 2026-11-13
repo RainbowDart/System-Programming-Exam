@@ -27,7 +27,7 @@ internal static class Program
 public sealed class ProjectService
 {
     private readonly MathService _mathService = new();
-
+    private readonly ProcessService _processService = new();
     public async Task RunAsync()
     {
         Console.WriteLine("TODO 1 Исправление legacy-кода");
@@ -36,6 +36,11 @@ public sealed class ProjectService
 
         Console.WriteLine($"Исправленный сервис: 10 / 0 = {_mathService.SafeDivide(10, 0)}");
         Console.WriteLine($"Исправленный сервис: 10 / 2 = {_mathService.SafeDivide(10, 2)}");
+
+        Console.WriteLine("\nTODO 2: Запуск внешней утилиты");
+        _processService.RunCommand("ipconfig", "");
+
+        await Task.CompletedTask;
 
         await Task.CompletedTask;
     }
