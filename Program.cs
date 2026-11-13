@@ -28,6 +28,7 @@ internal static class Program
 public sealed class ProjectService
 {
     private readonly MathService _mathService = new();
+    private readonly ParallelService _parallelService = new();
     private readonly ProcessService _processService = new();
     private readonly CounterService _counterService = new();
     private readonly FileService _fileService = new();
@@ -55,7 +56,10 @@ public sealed class ProjectService
         });
         Console.WriteLine($"Результат безопасного счётчика: {_counterService.GetCount()}");
 
+        Console.WriteLine("\nTODO 5: Сравнение LINQ и PLINQ ---");
+        _parallelService.CompareProcessing();
 
+        await Task.CompletedTask;
         await Task.CompletedTask;
     }
 }
