@@ -32,7 +32,7 @@ public sealed class ProjectService
     private readonly ProcessService _processService = new();
     private readonly CounterService _counterService = new();
     private readonly FileService _fileService = new();
-    private readonly RegistryService _registryService = new();
+    private readonly ChannelService _channelService = new();
     public async Task RunAsync()
     {
         Console.WriteLine("TODO 1 Исправление legacy-кода");
@@ -68,9 +68,8 @@ public sealed class ProjectService
         }
         Console.WriteLine("Обёртка удалена.");
 
-        Console.WriteLine("\nTODO 7: Сохранение в HKCU");
-        _registryService.SaveSetting("LastRun", DateTime.Now.ToString());
-        Console.WriteLine($"Прочитано из реестра: {_registryService.ReadSetting("LastRun")}");
+        Console.WriteLine("\nTODO 10: Channel Pipeline");
+        await _channelService.RunPipelineAsync();
 
         await Task.CompletedTask;
     }
