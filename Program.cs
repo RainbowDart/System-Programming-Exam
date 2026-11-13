@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading.Channels;
@@ -28,6 +29,7 @@ public sealed class ProjectService
 {
     private readonly MathService _mathService = new();
     private readonly ProcessService _processService = new();
+    private readonly CounterService _counterService = new();
     private readonly FileService _fileService = new();
     public async Task RunAsync()
     {
@@ -44,6 +46,15 @@ public sealed class ProjectService
         Console.WriteLine("\nTODO 3: Асинхронная файловая операция" +
             "");
         await _fileService.WriteAndReadAsync("test_async.txt", "Привет");
+
+
+        Console.WriteLine("\nTODO 4: Безопасный счётчик");
+        Parallel.For(0, 10000, i =>
+        {
+            _counterService.IncrementSafe();
+        });
+        Console.WriteLine($"Результат безопасного счётчика: {_counterService.GetCount()}");
+
 
         await Task.CompletedTask;
     }
